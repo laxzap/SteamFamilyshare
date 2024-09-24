@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace SteamFamilyshare
     public partial class MainWindow : Window
     {
         private const string RuleName = "SteamShareLibrary";
-        private const int PollingInterval = 1000; // Polling Intervall
+        private const int PollingInterval = 1000; // Polling interval in milliseconds
         private CancellationTokenSource cancellationTokenSource;
 
         public MainWindow()
         {
             InitializeComponent();
-            // Überprüfen, ob die Anwendung mit Administratorrechten ausgeführt wird
+            // Check if the application is running with administrator rights
             if (!IsRunAsAdministrator())
             {
                 RestartAsAdministrator();
@@ -35,7 +36,7 @@ namespace SteamFamilyshare
             string savedExePath = LoadSavedExePath();
             CheckAndSelectExe(ref savedExePath);
 
-            // Überprüfen, ob die Firewallregel existiert und ggf. erstellen
+            // Check if the firewall rule exists, if not, create it
             if (!IsFirewallRuleExists(RuleName))
             {
                 CreateFirewallRule(savedExePath);
@@ -46,8 +47,8 @@ namespace SteamFamilyshare
 
         private void CheckAndSelectExe(ref string savedExePath)
         {
-            // Solange der Benutzer keine gültige steam.exe auswählt
-            while (string.IsNullOrEmpty(savedExePath) || Path.GetFileName(savedExePath).ToLower() != "steam.exe")
+            // While the user does not select a valid steam.exe
+            while (string.IsNullOrEmpty(savedExePath) || Path.GetFileName(savedExePath).Equals("steam.exe", StringComparison.OrdinalIgnoreCase) == false)
             {
                 savedExePath = SelectExeFile();
 
@@ -58,12 +59,12 @@ namespace SteamFamilyshare
                 }
                 else if (!Path.GetFileName(savedExePath).Equals("steam.exe", StringComparison.OrdinalIgnoreCase))
                 {
-                    ShowAlert("Bitte nur steam.exe auswählen.");
+                    ShowAlert("Please select only steam.exe.");
                 }
             }
 
-            selectedExePathTextBox.Text = savedExePath; // UI aktualisieren
-            SaveExePath(savedExePath); // Pfad speichern
+            selectedExePathTextBox.Text = savedExePath; // Update UI
+            SaveExePath(savedExePath); // Save path
         }
 
         private async void StartRealTimeStatusCheck()
@@ -85,7 +86,7 @@ namespace SteamFamilyshare
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            cancellationTokenSource?.Cancel(); // Statusabfrage beim Schließen abbrechen
+            cancellationTokenSource?.Cancel(); // Cancel status check on window close
         }
 
         private async void OnClick(object sender, RoutedEventArgs e)
@@ -96,25 +97,25 @@ namespace SteamFamilyshare
             if (clickedButton == enableNetwork && ruleStatus != "disabled")
             {
                 await ExecuteNetshCommandAsync($"advfirewall firewall set rule name=\"{RuleName}\" new enable=no");
-                ShowAlert("Die Regel wurde deaktiviert (Netzwerkzugriff erlaubt).");
+                ShowAlert("Rule disabled (Network access allowed).");
             }
             else if (clickedButton == disableNetwork && ruleStatus != "enabled")
             {
                 await ExecuteNetshCommandAsync($"advfirewall firewall set rule name=\"{RuleName}\" new enable=yes");
-                ShowAlert("Die Regel wurde aktiviert (Netzwerkzugriff blockiert).");
+                ShowAlert("Rule enabled (Network access blocked).");
             }
 
             await UpdateButtonColorsAsync();
         }
 
-        private void CreateFirewallRule(string exePath)
+        private static void CreateFirewallRule(string exePath) // Marked as static
         {
             string command = $"advfirewall firewall add rule name=\"{RuleName}\" dir=out action=block program=\"{exePath}\" enable=no";
             ExecuteNetshCommandAsync(command).Wait();
-            ShowAlert("Firewallregel erfolgreich erstellt.");
+            ShowAlert("Firewall rule created successfully.");
         }
 
-        private async Task<string> GetFirewallRuleStatusAsync(string ruleName)
+        private static async Task<string> GetFirewallRuleStatusAsync(string ruleName) // Marked as static
         {
             return await Task.Run(() =>
             {
@@ -139,7 +140,7 @@ namespace SteamFamilyshare
                 }
                 catch (Exception ex)
                 {
-                    ShowAlert("Fehler beim Überprüfen des Regelstatus: " + ex.Message);
+                    ShowAlert("Error checking rule status: " + ex.Message);
                     return "not found";
                 }
             });
@@ -149,22 +150,24 @@ namespace SteamFamilyshare
         {
             string ruleStatus = await GetFirewallRuleStatusAsync(RuleName);
 
-            // UI-Updates im Hauptthread durchführen
+            // Perform UI updates on the main thread
             Application.Current.Dispatcher.Invoke(() =>
             {
                 enableNetwork.Background = ruleStatus == "disabled" ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Gray);
                 disableNetwork.Background = ruleStatus == "enabled" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Gray);
 
-                // Aktualisierung des Regelstatus-Textblocks
-                ruleStatusTextBlock.Text = ruleStatus == "enabled" ? "Netzwerk deaktiviert" : "Netzwerk aktiviert";
+                // Update the rule status text block
+                ruleStatusTextBlock.Text = ruleStatus == "enabled" ? "Network disabled" : "Network enabled";
                 ruleStatusTextBlock.Background = ruleStatus == "enabled" ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.Green);
             });
         }
 
-        private bool IsRunAsAdministrator() =>
-            new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        private static bool IsRunAsAdministrator() // Marked as static
+        {
+            return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        }
 
-        private void RestartAsAdministrator()
+        private static void RestartAsAdministrator() // Marked as static
         {
             try
             {
@@ -178,38 +181,56 @@ namespace SteamFamilyshare
             }
             catch (Exception ex)
             {
-                ShowAlert("Diese Anwendung benötigt Administratorrechte: " + ex.Message);
+                ShowAlert("This application requires administrator privileges: " + ex.Message);
                 Application.Current.Shutdown();
             }
         }
 
-        private string SelectExeFile()
+        private static string SelectExeFile() // Marked as static
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Executable files (*.exe)|*.exe",
-                Title = "Wählen Sie steam.exe aus"
+                Title = "Select steam.exe"
             };
 
-            return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;
+            // Show the dialog and check if the user selected a file
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Check if the selected file is "steam.exe"
+                if (Path.GetFileName(openFileDialog.FileName).Equals("steam.exe", StringComparison.OrdinalIgnoreCase))
+                {
+                    return openFileDialog.FileName; // Return the file path if the file matches
+                }
+                else
+                {
+                    ShowAlert("Please select only steam.exe."); // Show warning
+                    return null; // Return null to indicate that the selection was invalid
+                }
+            }
+
+            return null; // Return null if the dialog is canceled
         }
 
-        private void SaveExePath(string exePath)
+        private static void SaveExePath(string exePath) // Marked as static
         {
             try
             {
                 Properties.Settings.Default.ExePath = exePath;
-                Properties.Settings.Default.Save(); // Pfad in den Einstellungen speichern
+                Properties.Settings.Default.Save(); // Save path in settings
             }
             catch (Exception ex)
             {
-                ShowAlert("Fehler beim Speichern des Dateipfads: " + ex.Message);
+                ShowAlert("Error saving file path: " + ex.Message);
             }
         }
 
-        private string LoadSavedExePath() => Properties.Settings.Default.ExePath;
+        private static string LoadSavedExePath() // Marked as static
+        {
+            return Properties.Settings.Default.ExePath;
+        }
 
-        private bool IsFirewallRuleExists(string ruleName)
+        private static bool IsFirewallRuleExists(string ruleName) // Marked as static
         {
             try
             {
@@ -225,17 +246,19 @@ namespace SteamFamilyshare
                     string output = process.StandardOutput.ReadToEnd();
                     process.WaitForExit();
 
-                    return output.Contains(ruleName);
+                    // Use IndexOf for case-insensitive search
+                    return output.IndexOf(ruleName, StringComparison.OrdinalIgnoreCase) >= 0;
                 }
             }
             catch (Exception ex)
             {
-                ShowAlert("Fehler beim Überprüfen der Firewallregel: " + ex.Message);
+                ShowAlert("Error checking firewall rule: " + ex.Message);
                 return false;
             }
         }
 
-        private async Task ExecuteNetshCommandAsync(string command)
+
+        private static async Task ExecuteNetshCommandAsync(string command) // Marked as static
         {
             await Task.Run(() =>
             {
@@ -255,33 +278,34 @@ namespace SteamFamilyshare
                 }
                 catch (Exception ex)
                 {
-                    ShowAlert("Fehler beim Ausführen des Befehls: " + ex.Message);
+                    ShowAlert("Error executing command: " + ex.Message);
                 }
             });
         }
 
-        private void ShowAlert(string message)
+        private static void ShowAlert(string message) // Marked as static
         {
             MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         /// <summary>
-        /// Öffnet einen Dialog zur Auswahl der steam.exe und aktualisiert den Pfad im Textfeld.
+        /// Opens a dialog to select steam.exe and updates the path in the text box.
         /// </summary>
         private void SelectExeButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string exePath = SelectExeFile();
+                string exePath = SelectExeFile(); // Open file dialog
+
                 if (!string.IsNullOrEmpty(exePath))
                 {
-                    selectedExePathTextBox.Text = exePath; // Zeige den Pfad im Textfeld an
-                    SaveExePath(exePath); // Speichere den Pfad
+                    selectedExePathTextBox.Text = exePath; // Update UI
+                    SaveExePath(exePath); // Save path
                 }
             }
             catch (Exception ex)
             {
-                ShowAlert("Fehler beim Auswählen der Datei: " + ex.Message);
+                ShowAlert("Error selecting file: " + ex.Message);
             }
         }
     }
