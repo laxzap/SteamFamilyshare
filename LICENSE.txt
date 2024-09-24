@@ -1,0 +1,9 @@
+MIT License
+
+Copyright (c) 2024 LaxZap
+
+Hiermit wird unentgeltlich jeder Person, die eine Kopie dieser Software und der damit verbundenen Dokumentation (die "Software") erhält, die Erlaubnis erteilt, die Software ohne Einschränkung zu nutzen, einschließlich, aber nicht beschränkt auf das Recht, die Software zu nutzen, zu kopieren, zu ändern, zu fusionieren, zu veröffentlichen, zu verteilen, Unterlizenzen zu erteilen und/oder zu verkaufen und Personen, denen die Software zur Verfügung gestellt wird, dies zu gestatten, unter den folgenden Bedingungen:
+
+1. Der obige Urheberrechtshinweis und dieser Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software enthalten sein.
+
+2. DIE SOFTWARE WIRD "WIE BESEHEN" UND OHNE GARANTIE IRGENDEINER ART, AUSDRÜCKLICH ODER IMPLIZIERT, EINSCHLIESSLICH, ABER NICHT BESCHRÄNKT AUF DIE GARANTIEN DER EIGNUNG FÜR EINEN BESTIMMTEN ZWECK, DER FEHLERFREIHEIT ODER DER RECHTMÄSSIGKEIT. IN KEINEM FALL HAFTET DER AUTOR ODER DIE URHEBERRECHTSINHABER FÜR ANSPRUCHEN, SCHÄDEN ODER ANDERE HAFTUNGEN, OB IN EINER AKTION DER VERTRAGS- ODER DELIKTHAFTUNG, DIE AUS DER NUTZUNG DER SOFTWARE ODER ANDEREN HANDLUNGEN DER SOFTWARE RESULTIEREN.
