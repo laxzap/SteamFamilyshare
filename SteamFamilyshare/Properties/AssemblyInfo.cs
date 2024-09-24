@@ -6,9 +6,9 @@ using System.Windows;
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("SteamFamilyshare")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This program allows you to play the same game from your friend's library at the same time, but offline.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("LaxZap")]
 [assembly: AssemblyProduct("SteamFamilyshare")]
 [assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
