@@ -2,8 +2,8 @@ MIT License
 
 Copyright (c) 2024 LaxZap
 
-Hiermit wird unentgeltlich jeder Person, die eine Kopie dieser Software und der damit verbundenen Dokumentation (die "Software") erhÃ¤lt, die Erlaubnis erteilt, die Software ohne EinschrÃ¤nkung zu nutzen, einschlieÃŸlich, aber nicht beschrÃ¤nkt auf das Recht, die Software zu nutzen, zu kopieren, zu Ã¤ndern, zu fusionieren, zu verÃ¶ffentlichen, zu verteilen, Unterlizenzen zu erteilen und/oder zu verkaufen und Personen, denen die Software zur VerfÃ¼gung gestellt wird, dies zu gestatten, unter den folgenden Bedingungen:
+Hiermit wird unentgeltlich jeder Person, die eine Kopie dieser Software und der damit verbundenen Dokumentation (die "Software") erhält, die Erlaubnis erteilt, die Software ohne Einschränkung zu nutzen, einschließlich, aber nicht beschränkt auf das Recht, die Software zu nutzen, zu kopieren, zu ändern, zu fusionieren, zu veröffentlichen, zu verteilen, Unterlizenzen zu erteilen und/oder zu verkaufen und Personen, denen die Software zur Verfügung gestellt wird, dies zu gestatten, unter den folgenden Bedingungen:
 
-1. Der obige Urheberrechtshinweis und dieser Genehmigungshinweis mÃ¼ssen in allen Kopien oder wesentlichen Teilen der Software enthalten sein.
+1. Der obige Urheberrechtshinweis und dieser Genehmigungshinweis müssen in allen Kopien oder wesentlichen Teilen der Software enthalten sein.
 
-2. DIE SOFTWARE WIRD "WIE BESEHEN" UND OHNE GARANTIE IRGENDEINER ART, AUSDRÃœCKLICH ODER IMPLIZIERT, EINSCHLIESSLICH, ABER NICHT BESCHRÃ„NKT AUF DIE GARANTIEN DER EIGNUNG FÃœR EINEN BESTIMMTEN ZWECK, DER FEHLERFREIHEIT ODER DER RECHTMÃ„SSIGKEIT. IN KEINEM FALL HAFTET DER AUTOR ODER DIE URHEBERRECHTSINHABER FÃœR ANSPRUCHEN, SCHÃ„DEN ODER ANDERE HAFTUNGEN, OB IN EINER AKTION DER VERTRAGS- ODER DELIKTHAFTUNG, DIE AUS DER NUTZUNG DER SOFTWARE ODER ANDEREN HANDLUNGEN DER SOFTWARE RESULTIEREN.
+2. DIE SOFTWARE WIRD "WIE BESEHEN" UND OHNE GARANTIE IRGENDEINER ART, AUSDRÜCKLICH ODER IMPLIZIERT, EINSCHLIESSLICH, ABER NICHT BESCHRÄNKT AUF DIE GARANTIEN DER EIGNUNG FÜR EINEN BESTIMMTEN ZWECK, DER FEHLERFREIHEIT ODER DER RECHTMÄSSIGKEIT. IN KEINEM FALL HAFTET DER AUTOR ODER DIE URHEBERRECHTSINHABER FÜR ANSPRUCHEN, SCHÄDEN ODER ANDERE HAFTUNGEN, OB IN EINER AKTION DER VERTRAGS- ODER DELIKTHAFTUNG, DIE AUS DER NUTZUNG DER SOFTWARE ODER ANDEREN HANDLUNGEN DER SOFTWARE RESULTIEREN.
