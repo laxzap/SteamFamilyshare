@@ -4,4 +4,4 @@ Dieses Programm ermöglicht es dir, das gleiche Spiel aus der Bibliothek deines 
 
 ## Lizenz
 
-Diese Software wird unter der MIT-Lizenz lizenziert. Siehe die [LICENSE](LICENSE) Datei für weitere Informationen.
+Diese Software wird unter der MIT-Lizenz lizenziert. Siehe die [LICENSE](LICENSE.txt) Datei für weitere Informationen.
